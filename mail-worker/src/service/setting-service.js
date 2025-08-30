@@ -1,7 +1,7 @@
 import KvConst from '../const/kv-const';
 import setting from '../entity/setting';
 import orm from '../entity/orm';
-import { settingConst, verifyRecordType } from '../const/entity-const';
+import { verifyRecordType } from '../const/entity-const';
 import fileUtils from '../utils/file-utils';
 import r2Service from './r2-service';
 import emailService from './email-service';
@@ -21,11 +21,22 @@ const settingService = {
 	},
 
 	async query(c) {
+
 		const setting = await c.env.kv.get(KvConst.SETTING, { type: 'json' });
 		let domainList = c.env.domain;
+
 		if (typeof domainList === 'string') {
-			throw new BizError(t('notJsonDomain'));
+			try {
+				domainList = JSON.parse(domainList)
+			} catch (error) {
+				throw new BizError(t('notJsonDomain'));
+			}
 		}
+
+		if (!c.env.domain) {
+			throw new BizError(t('noDomainVariable'));
+		}
+
 		domainList = domainList.map(item => '@' + item);
 		setting.domainList = domainList;
 		return setting;
@@ -136,7 +147,7 @@ const settingService = {
 			siteKey: settingRow.siteKey,
 			background: settingRow.background,
 			loginOpacity: settingRow.loginOpacity,
-			domainList:settingRow.domainList,
+			domainList: settingRow.domainList,
 			regKey: settingRow.regKey,
 			regVerifyOpen: settingRow.regVerifyOpen,
 			addVerifyOpen: settingRow.addVerifyOpen,

@@ -26,13 +26,16 @@ const init = {
 	},
 
 	async v1_7DB(c) {
-		c.env.db.prepare(`ALTER TABLE setting ADD COLUMN login_domain INTEGER NOT NULL DEFAULT 0;`).run();
+		try {
+			await c.env.db.prepare(`ALTER TABLE setting ADD COLUMN login_domain INTEGER NOT NULL DEFAULT 0;`).run();
+		} catch (e) {
+			console.warn(`通过字段，原因：${e.message}`);
+		}
 	},
 
 	async v1_6DB(c) {
 
-		const noticeContent = '<div style="color: teal;margin-bottom: 5px;">欢迎使用 Cloud Mail 🎉 </div >\n' +
-			'本项目仅供学习交流，禁止用于违法业务\n' +
+		const noticeContent = '本项目仅供学习交流，禁止用于违法业务\n' +
 			'<br>\n' +
 			'请遵守当地法规，作者不承担任何法律责任\n' +
 			'<div style="display: flex;gap: 18px;margin-top: 10px;">\n' +
@@ -54,7 +57,7 @@ const init = {
 				type INTEGER NOT NULL DEFAULT 0,
 				update_time DATETIME DEFAULT CURRENT_TIMESTAMP
       )`,
-			`ALTER TABLE setting ADD COLUMN notice_title TEXT NOT NULL DEFAULT '公告';`,
+			`ALTER TABLE setting ADD COLUMN notice_title TEXT NOT NULL DEFAULT 'Cloud Mail';`,
 			`ALTER TABLE setting ADD COLUMN notice_content TEXT NOT NULL DEFAULT '';`,
 			`ALTER TABLE setting ADD COLUMN notice_type TEXT NOT NULL DEFAULT 'none';`,
 			`ALTER TABLE setting ADD COLUMN notice_duration INTEGER NOT NULL DEFAULT 0;`,
@@ -63,7 +66,7 @@ const init = {
 			`ALTER TABLE setting ADD COLUMN notice_width INTEGER NOT NULL DEFAULT 340;`,
 			`ALTER TABLE setting ADD COLUMN notice INTEGER NOT NULL DEFAULT 0;`,
 			`ALTER TABLE setting ADD COLUMN no_recipient INTEGER NOT NULL DEFAULT 1;`,
-			`UPDATE role SET avail_domain = '';`,
+			`UPDATE role SET avail_domain = '' WHERE role.avail_domain LIKE '@%';`,
 			`UPDATE role SET ban_email = '';`,
 			`CREATE INDEX IF NOT EXISTS idx_email_user_id_account_id ON email(user_id, account_id);`
 		];
@@ -92,8 +95,8 @@ const init = {
 	},
 
 	async v1_5DB(c) {
-		await c.env.db.prepare(`UPDATE perm SET perm_key = 'sys-email:list' WHERE perm_key = 'all-email:list'`).run();
-		await c.env.db.prepare(`UPDATE perm SET perm_key = 'sys-email:delete' WHERE perm_key = 'all-email:delete'`).run();
+		await c.env.db.prepare(`UPDATE perm SET perm_key = 'all-email:query' WHERE perm_key = 'sys-email:query'`).run();
+		await c.env.db.prepare(`UPDATE perm SET perm_key = 'all-email:delete' WHERE perm_key = 'sys-email:delete'`).run();
 		try {
 			await c.env.db.prepare(`ALTER TABLE role ADD COLUMN avail_domain TEXT NOT NULL DEFAULT ''`).run();
 		} catch (e) {
@@ -245,7 +248,7 @@ const init = {
 			`ALTER TABLE setting ADD COLUMN site_key TEXT;`,
 			`ALTER TABLE setting ADD COLUMN secret_key TEXT;`,
 			`ALTER TABLE setting ADD COLUMN background TEXT;`,
-			`ALTER TABLE setting ADD COLUMN login_opacity INTEGER NOT NULL DEFAULT 0.88;`,
+			`ALTER TABLE setting ADD COLUMN login_opacity INTEGER NOT NULL DEFAULT 0.80;`,
 
 			`ALTER TABLE user ADD COLUMN create_ip TEXT;`,
 			`ALTER TABLE user ADD COLUMN active_ip TEXT;`,

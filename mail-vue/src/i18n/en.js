@@ -51,7 +51,7 @@ const en = {
     tabReceived: 'Received',
     tabSent: 'Sent',
     tabMailboxes: 'Accounts',
-    tabRegisteredAt: 'Registered at',
+    tabRegisteredAt: 'Registered At',
     tabStatus: 'Status',
     tabRole: 'Role',
     roleName: 'Name',
@@ -211,7 +211,7 @@ const en = {
     addRoleTitle: 'Add Role',
     emptyUserNameMsg: 'Name cannot be empty',
     delAccountConfirm: 'Confirm deleting current account and all associated data?',
-    clearAllDelConfirm: 'This action is irreversible. Enter <b style="font-weight: bold">DELETE</b> to proceed',
+    clearAllDelConfirm: 'This action is irreversible. Enter <b style="font-weight: bold;">DELETE</b> to proceed',
     warning: 'Warning',
     delInputPattern: 'DELETE',
     inputErrorMessage: 'Please enter DELETE to confirm',
@@ -281,7 +281,16 @@ const en = {
     noRecipientDesc: 'Emails can be received even without a registered email address.',
     preview: 'Preview',
     help: 'Help',
-    document: 'Document'
+    document: 'Document',
+    clearEmail: 'Email Cleanup',
+    sendEmailAddress: 'From Email',
+    toEmail: 'To Email',
+    equal: 'Equal',
+    leading: 'Leading',
+    to: 'To',
+    clear: 'Clear',
+    include: 'Include',
+    delAllEmailConfirm: 'Do you really want to delete it?'
 }
 
 export default en

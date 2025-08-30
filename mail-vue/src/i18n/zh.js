@@ -147,7 +147,7 @@ const zh = {
     autoRefresh: '自动刷新',
     autoRefreshDesc: '轮询请求服务器获取最新邮件',
     sendEmail: '邮件发送',
-    resendToken: '添加 Resend Token',
+    resendToken: 'Resend Token',
     R2OS: 'R2 对象存储',
     osDomain: '访问域名',
     emailPush: '邮件推送',
@@ -211,7 +211,7 @@ const zh = {
     addRoleTitle: '添加身份',
     emptyUserNameMsg: '用户名不能为空',
     delAccountConfirm: '确认删除当前账号及所有数据吗?',
-    clearAllDelConfirm: '此操作不可逆转, 输入 <b style="font-weight: bold">确认删除</b> 继续操作',
+    clearAllDelConfirm: '此操作不可逆转, 输入 <b style="font-weight: bold;">确认删除</b> 继续操作',
     warning: '警告',
     delInputPattern: '确认删除',
     inputErrorMessage: '请输入确认删除',
@@ -281,7 +281,16 @@ const zh = {
     noRecipientDesc: '即使没有注册的邮箱也能收到邮件',
     preview: '预览',
     help: '帮助',
-    document: '项目文档'
+    document: '项目文档',
+    clearEmail: '邮件清除',
+    sendEmailAddress: '发件人邮箱',
+    toEmail: '收件人邮箱',
+    equal: '等值',
+    leading: '左匹配',
+    to: '至',
+    clear: '清除',
+    include: '包含',
+    delAllEmailConfirm: '确定要删除吗？'
 
 }
 export default zh
